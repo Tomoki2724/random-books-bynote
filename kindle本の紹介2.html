@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ジャケ買い！kindle books by noter</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #ccffcc;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin: 0;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1.2px;
+        }
+
+        #books-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px 15px;
+            flex-grow: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .book-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-cover {
+            width: 160px;
+            height: 240px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .book-item:hover .book-cover {
+            transform: scale(1.05);
+        }
+
+        .book-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .book-author {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        #random-books-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #random-books-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            display: inline-block;
+            margin: 0 15px;
+            font-size: 16px;
+            color: #007BFF;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .links a:hover {
+            color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #ffcccc;
+            font-size: 14px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 767px) {
+            header {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            #books-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .book-item {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 10px;
+            }
+
+            .book-cover {
+                width: 180px;
+                height: 270px;
+            }
+
+            #random-books-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+                margin: 10px auto;
+            }
+
+            .links {
+                margin-top: 15px;
+            }
+
+            .links a {
+                font-size: 14px;
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>ジャケ買い！kindle books by noter</h1>
+    </header>　
+
+    <div id="books-container"></div>
+    <button id="random-books-btn">ガチャを回す</button>
+
+    <div class="links">
+        <a href="https://jakegai-novel.netlify.app">小説はこちら</a>
+        <a href="https://random-businessbooks.netlify.app">ビジネス書はこちら</a>
+    </div>
+
+    <footer>
+        Amazonのアソシエイトとして、［ジャケ買い！］は適格販売により収入を得ています。
+    </footer>
+
+    <script>
+        const books = [
+            { title: "noteとスマホだけのズボラKindle出版", author: "くろめが", isbn: "B0C3C2J12Z" },
+            { title: "読んでもらえるnote術", author: "ももんか", isbn: "B0CKZJ7SGW" },
+            { title: "圧倒的にわかりやすい！ note 初心者入門ガイド", author: "カーボ", isbn: "B094JKNLSN" },
+            { title: "noteではじめる 新しいアウトプットの教室", author: "コグレ マサト まつゆう", isbn: "B092CYY4NF" },
+            { title: "note1200日連続投稿やってみた", author: "なな", isbn: "B0DCBMHFFZ" },
+　　　　　　{ title: "はじめる・楽しむ・発信する　noteのガイドブック", author: "ぷらいまり。", isbn: "4297138794" },
+　　　　　　{ title: "note超攻略法", author: "ひな姫", isbn: "B096KRC777" },
+　　　　　　{ title: "イタい目にあってたどり着く③", author: "クロサキナオ", isbn: "B0CM2X8QWN" },
+　　　　　　{ title: "note完全マニュアル［第2版］", author: "八木重和", isbn: "479806999X" },
+　　　　　　{ title: "noteの書き方大全", author: "そら", isbn: "B0CVL8KMT7" },
+　　　　　　{ title: "ぼくが失敗から学んだネット副業術", author: "ミツ", isbn: "480471894X" },
+　　　　　　{ title: "note総PV数10万を超える方法", author: "norio", isbn: "B0BWDXTLNV" },
+　　　　　　{ title: "少ない記事で大きく稼ぐ note副業術", author: "夏目ゆう", isbn: "B08TTDFJD3" },
+            { title: "家族もママも笑顔に変わる毎日の習慣", author: "須山 ゆず", isbn: "B0CBNVLP3W" },
+            { title: "兼業農家のすすめ", author: "笠原　一", isbn: "B0CS9KT6T8" },
+            { title: "超初心者がスマホだけでKindle出版にトライしてみた", author: "のん", isbn: "B0D3C1GHY6" },
+            { title: "四国をぐるっと一周グルメ旅", author: "むろしょう", isbn: "B0DBG7G548" },
+            { title: "楽天ポイント完全攻略【貯める編】", author: "リチャード ", isbn: "B095C9BR81" },
+            { title: "FEEL", author: "阪本明日香 ", isbn: "B073SZL5CX" },
+            { title: "JREのポイントが貯まったのでどこかにビューーン！の旅をしてきました。", author: "内藤みか", isbn: "B0D9L43PPK" },
+            { title: "電子書籍出版：オールコンプリートマニュアル", author: "野口 寛", isbn: "B0BS16NFNK" },
+            { title: "お金に困らない人が書いた本", author: "かりそめ", isbn: "B082TLRVHN" },
+            { title: "セールスを不要にするKindle出版 ７つの法則", author: "中野 巧", isbn: "B0BTD8K3SR" },
+            { title: "30代で肩肘はるのはやめたので", author: "ひじはるこ", isbn: "B0CWB9SW4T" },
+            { title: "秒で伝わる文章術", author: "宮崎直人", isbn: "B09XHNCQ4L" },
+            { title: "ゆるく生きるためのマインド", author: "ゆず", isbn: "B0CXMZT1BL" },
+　　　　　  { title: "バンクーバー親子留学ナビ", author: "門馬聖子", isbn: "B0D5YL6KJC" },
+            { title: "プロ編集者が教える小説の書き方", author: "あいこ", isbn: "B0DC3DVD4K" },
+            { title: "Notion習慣トラッカーで人生をマニュアル化してもっと自由に", author: "ホヴィンチ", isbn: "B0D5HG6M58" },
+            { title: "コッケーなニワトリはケッコーです。", author: "夏目　龍頭", isbn: "B0D7T5F7JW" },
+            { title: "潮騒に導かれて", author: "ねこのみみ", isbn: "B0D9NX81Q3" },
+            { title: "月15万円東京ふたり暮らし", author: "なぎ ", isbn: "B0CQ4NKRYQ" },
+            { title: "愛すべき凡庸な日常", author: "守田樹", isbn: "B0D9DGJ79T" },
+            { title: "宅建士合格　たった３つのコツ", author: "kindle-dog", isbn: "B0DC3NB3JW" },
+            { title: "なぜ女はこんなことで怒るのか", author: "神崎 桃子", isbn: "B08229V8Z8" },
+            { title: "twenty all", author: "黒珈", isbn: "B0CW1JC1C8" },
+            { title: "電脳虚構 Act-1", author: "日向猫猫", isbn: "B0D3K1VDWR" },
+            { title: "モンテッソーリ園の選び方7つのポイント", author: "モンテッソーリガイドえみ", isbn: "B0CL1JXNNG" },
+            { title: "ずぼランナーのススメ", author: "三浦直子", isbn: "B09WZLV9FV" },
+            { title: "後悔しない人生を送るための１０のレッスン", author: "櫻井健太", isbn: "B0D5LN9J9H" },
+            { title: "あの頃の僕と、泣き虫だった母へ", author: "TACK", isbn: "B0BSRMBJQJ" },
+            { title: "「本を読む子」はこう育てる", author: "本田すのう", isbn: "B0CTRNZLXK" },
+            { title: "教師のためのKindle出版ガイド", author: "ICTのねこ", isbn: "B0CL3S8HX4" },
+　　　　　　{ title: "初心者にも分かりやすい小説の書き方", author: "我那覇アキラ", isbn: "B0BM3SC4N9" },
+　　　　　　{ title: "コーストFIREしちゃいました！", author: "スミレ", isbn: "B0CW1KTHHP" },
+　　　　　　{ title: "小学生でも英検準2級に合格する自宅学習法", author: "元木 蒼生", isbn: "B0C5VVNYY8" },
+            { title: "【サクッとマンガでわかる！】DALL-E3", author: "片山 翔太", isbn: "B0CVS54QRX" },
+            { title: "noteの墓場に記事を埋めない為にしてきたこと5つ", author: "けんいち", isbn: "B0B18YYN6L" },
+            { title: "実績ゼロの主婦がTwitterを始めて変わった30のこと", author: "あん", isbn: "B0BR386WDW" },
+            { title: "アスペルガーな私のやらかし人生", author: "ソラノカナタ", isbn: "B0CGM5WG2C" },
+            { title: "ナースの卯月に視えるもの", author: "秋谷りんこ", isbn: "B0D2R7221X" },
+            { title: "クリームイエローの海と春キャベツのある家", author: "せやま 南天", isbn: "4022519770" },
+            { title: "私の死体を探してください。", author: "星月渉", isbn: "433410357X" },
+　　　　　　{ title: "祈願成就", author: "霜月 透子", isbn: "4101053413" },
+　　　　　　{ title: "存在の耐えられない愛おしさ", author: "伊藤 亜和", isbn: "4049157799" },
+　　　　　　{ title: "死にかけた僕はまだ芸人を辞めていない", author: "ナターシャ", isbn: "4046819472" },
+　　　　　　{ title: "魔法少女☆コンプレックス", author: "岩村月子", isbn: "B083NXD2KZ" },
+　　　　　　{ title: "FIREを目指す30代会社員のシンプルライフ", author: "シンプリストやまだ", isbn: "B0D44FBXLJ" },
+　　　　　　{ title: "内向型とHSPが自己否定を手放して「ありのままの私」を好きになる方法", author: "瀬戸にちか", isbn: "B0DB8PTB54" },
+　　　　　　{ title: "仕事で成果を出すための3つの思考力", author: "まさしお", isbn: "B0BSSZNZ6Z" },
+　　　　　　{ title: "売切御免！", author: "小川裕子", isbn: "B0BJ2FVTD1" },
+　　　　　　{ title: "はじめてのKindle出版５０代アナログさんの電子書籍奮闘記", author: "よっちゃん", isbn: "B0D8T11VFM" },
+　　　　　　{ title: "共感しやすい人の自分の整え方", author: "おつなぎ", isbn: "B0D7RB3ZJ6" },
+　　　　　　{ title: "いじめ解決！ポジティブほうれんそう", author: "かのん", isbn: "B0DCTC1PF4" },
+　　　　　　{ title: "noteで始めよう心の健康習慣", author: "こころみ", isbn: "B0D47NM2W9" },
+　　　　　　{ title: "常用漢字の極意！", author: "あいひろ", isbn: "B0DB12KHJS" },
+　　　　　　{ title: "多文化交差点：楽園マレーシアの魅力", author: "南風（みなみかぜ）", isbn: "B0D9RBC94W" },
+　　　　　　{ title: "楽器を習うには先生がすべて", author: "高月香里", isbn: "B06XBP9K31" },
+　　　　　　{ title: "HSS型HSPがラクに生きる10の方法", author: "HSS型HSP研究家こう", isbn: "B0BYXRVSDB" },
+            { title: "何も知らない人のためのワインの選び方", author: "仰木杏寿", isbn: "B0D9WXG1DJ" },
+            { title: "７日間でできる　超かんたんKindle出版", author: "空風にじまる", isbn: "B09P62PRRY" },
+            { title: "グルコースアダプト", author: "ひだよし", isbn: "B08TT62XX5" },
+            { title: "特化型Webライターになるためのロードマップ", author: "小花絵里", isbn: "B0D95C3PWP" },
+            { title: "一期一会", author: "でこぽん☆", isbn: "B0D9NPZNWV" },
+            { title: "40歳からはじめる！ランニング習慣のつくりかた", author: "リャウコ", isbn: "B0CS3X37DK" },
+            { title: "1ヵ月でイラストが売れるすごーい方法", author: "高木 ことみ", isbn: "B0CY2DCW6H" },
+            { title: "noteから始めるKindle出版", author: "Lyustyle", isbn: "B0BR274YDJ" },
+            { title: "誰も教えてくれなかった　営業って楽しい！", author: "gaku-gaku", isbn: "B0D8V8H9QW" },
+            { title: "問題解決型カウンセリング", author: "前田泰章", isbn: "B09BW6C974" },
+            { title: "なぜあなたの文章は「読みにくい」のか？", author: "い〜さぽ", isbn: "B0BSV9NVQ4" },
+            { title: "8月の威風堂々", author: "たいち", isbn: "B0D8ZC7VRB" },
+            { title: "サバサンドの記憶", author: "mia", isbn: "B0D77ZXJQX" },
+            { title: "Excelショートカット力試しドリル", author: "チサ", isbn: "B09B34PBQS" },
+            { title: "MOH Photo Book vol. 1", author: "MOH", isbn: "B0DBYYS3XB" },
+            { title: "もう迷わない！子どもとのかかわり方 そして 疲れない人間関係入門", author: "ぜっこーちょー校長／心理士", isbn: "B0D78CXL73" },
+            { title: "ひこうき雲　上巻", author: "みどり", isbn: "B0DCFRLVH6" },
+            { title: "メディカル・アロマテラピー基本の『き』", author: "髙石 摩耶", isbn: "B0DCGDDC23" },
+            { title: "FIRE58歳", author: "ラジ男", isbn: "B0D96B5931" },
+            { title: "会社のお荷物が探偵業に首を突っ込んだばかりにさらにお荷物になった悲劇は喜劇だ", author: "セイロンティー", isbn: "B0D33DWS35" },
+            { title: "書く副業のはじめかた", author: "佐々木 瑛太", isbn: "B0CLK8VKHX" },
+            { title: "繊細さんはモノとコトを減らして心の負担を少なくしよう", author: "西本純子", isbn: "B09Q33257L" },
+            { title: "Kindle出版で”売れる電子書籍” の著者が必ずやっている方法。", author: "中山マコト", isbn: "B0CJXPTC5G" },
+            { title: "すごいスマホメモ", author: "鳥本明", isbn: "B0C3LBPLPM" },
+            { title: "読書の常識を超える「Kindle Unlimited ７つの活用術」", author: "小田やかた", isbn: "B0BQWLBJYJ" },
+            { title: "UVレジンを楽しむ本〜封入素材編〜", author: "吉田葉津美", isbn: "B0BVKB4QWT" },
+            { title: "お客様の心を掴んで離さない売れる営業術", author: "まな（栗原　真菜） ", isbn: "B0D9QTHR7V" },
+            { title: "ChatGPT×Kindle出版", author: "ChatGPT会社員ShiGe", isbn: "B0CK4C4Y2D" },
+            { title: "コンサルで学んだ事業会社で高い成果を上げる14のコツ", author: "麻衣", isbn: "B09FZ3WJLF" },
+            { title: "いいかい、タケルくん", author: "なせ　じょーじ", isbn: "B09P37FN6H" },
+            { title: "小説『電車とリボン』", author: "みなとせ　はる", isbn: "B09KCJQ6VY" },
+            { title: "Webライターで月50万稼ぐロードマップ", author: "ゆらり", isbn: "B0BPSDJ6SR" },
+            { title: "Wordで超簡単にできる　初めてのKindle出版", author: "なおや", isbn: "B09KR4VRJ2" },
+            { title: "転校生は一人暮らし", author: "Shinya", isbn: "B0D8H1KQGW" },
+            { title: "こまろのフィンランド珍道中", author: "こまろ", isbn: "B0D45VK6GN" },
+            { title: "ハンドメイドで副業！！", author: "エリーナ", isbn: "B0BYMW45L6" },
+            { title: "化銭 -BAKE ZENI-", author: "狭刈 十", isbn: "B0DCFYKNZX" },
+            { title: "うさぴとほんのまほう", author: "しえる", isbn: "B0CZY746TF" },
+            { title: "ルーフトップのフリーク・トム", author: "サクラマス", isbn: "B0D762GYNS" },
+            { title: "今日の絵ッセイ", author: "ナカムラエコ", isbn: "B0D8FPXP3J" },
+            { title: "【マンガでわかる】上司が知らないAI超活用術", author: "ゆおかん他", isbn: "B0D6LHDSV4" },
+　　　　　　{ title: "大金を拾った男の話 大金を拾った男の話(原作・芝浜)", author: "丸田マノ", isbn: "B0CBG6TX57" },
+　　　　　　{ title: "その一 月夜の約束", author: "西尾真由記 我道雪益 ", isbn: "B0D86GM6MY" },
+　　　　　　{ title: "お金を減らしたくない妻 お金を増やしたい夫", author: "上野ナツ", isbn: "B0CKYJ4MT6" },
+　　　　　　{ title: "三山くんはしゃべらない　もず短編集", author: "もずももこ", isbn: "B0B1TZ63B2" },
+            { title: "おじねん4", author: "伊藤 巴", isbn: "B0D9RQV5NW" },
+            { title: "Character Book 3", author: "Toru Fukuda", isbn: "B0DBH9PH2K" },
+            { title: "スプラウト", author: "福島 太郎", isbn: "B0BPRXQ37F" },
+            { title: "シニア世代向け住宅探しの教科書", author: "藤野屋 新之助", isbn: "B0BK8VXP8H" },
+            { title: "モテるマッチングアプリ超入門", author: "黒川 翔 misaki ", isbn: "B0CFV8VFD9" },
+            { title: "組織で働く繊細さん(HSP)のお仕事術", author: "深井　リー", isbn: "B0D8XRS52K" },
+            { title: "高齢化社会を支える介護の未来", author: "株式会社あきた創生マネジメント代表取締役阿波野聖一", isbn: "B0DC6FPHNP" },
+            { title: "山裾の小径", author: "瞬那浩人", isbn: "B0CZXTXHGK" },
+            { title: "HSP×INFJの私が、30代のうちにやって良かった10の方法", author: "琴葉", isbn: "B0CXDSY1V6" },
+            { title: "本当のわたしらしい働き方を叶える方法", author: "ふくうら", isbn: "B0D96KNTHQ" },
+            { title: "こしあんのたい焼き", author: "じゅんこ3", isbn: "B09NQ245S8" },
+            { title: "Grrmiスピリチュアル ミーティング", author: "書きのたね＠ブルボンヌ", isbn: "B0D844TNTG" },
+            { title: "英語長文問題で読み解く情報科学-30", author: "ラビット", isbn: "B0DBFVK3CZ" },
+            { title: "さくさく文庫① 水滴の転生", author: "さくさく", isbn: "B0BRWVVLXW" },
+             // 他の本のデータを追加
+        ];
+
+        const associateTag = "tomoki2724-22";
+
+        function getRandomBooks() {
+            const shuffledBooks = books.sort(() => 0.5 - Math.random());
+            return window.innerWidth <= 767 ? shuffledBooks.slice(0, 1) : shuffledBooks.slice(0, 4);
+        }
+
+        function displayBooks() {
+            const booksContainer = document.getElementById('books-container');
+            booksContainer.innerHTML = '';
+
+            const randomBooks = getRandomBooks();
+            randomBooks.forEach(book => {
+                const amazonLink = `https://www.amazon.co.jp/dp/${book.isbn}/ref=nosim?tag=${associateTag}`;
+                const coverImageUrl = `https://images-na.ssl-images-amazon.com/images/P/${book.isbn}.jpg`;
+                const bookItem = document.createElement('div');
+                bookItem.className = 'book-item';
+
+                bookItem.innerHTML = `
+                    <a href="${amazonLink}" target="_blank">
+                        <img src="${coverImageUrl}" alt="${book.title}" class="book-cover">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">${book.author}</div>
+                    </a>`;
+                booksContainer.appendChild(bookItem);
+            });
+        }
+
+        document.getElementById('random-books-btn').addEventListener('click', displayBooks);
+
+        // ページ読み込み時に初回の表示
+        window.onload = displayBooks;
+    </script>
+</body>
+
+</html>
